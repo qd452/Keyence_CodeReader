@@ -26,6 +26,9 @@ import os
 if sys.version_info.major != 2 or sys.version_info.minor != 7:
     raise Exception("must use Python 2.7")
 
+import os, sys)
+sys.path.append(os.path.dirname(__file__))
+
 import clr
 clr.AddReference('BarcodeReaderControl')
 clr.AddReference('System.Drawing')
