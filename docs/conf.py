@@ -18,7 +18,17 @@
 #
 import os
 import sys
+from mock import MagicMock, Mock  # Mock clr
 sys.path.insert(0, os.path.abspath('../src'))
+
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+            return Mock()
+
+MOCK_MODULES = ['clr', 'System', 'System.Windows', 'Keyence', 'System.Drawing',
+                'Keyence.AutoID', 'System.Windows.Forms', 'System.Text']
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 # -- General configuration ------------------------------------------------
 
