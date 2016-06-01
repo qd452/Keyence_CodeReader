@@ -2,3 +2,4 @@
 /BARCODE_IMG
 /*.log
 /*.pyc
+/docs/_build
