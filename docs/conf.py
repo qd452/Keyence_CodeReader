@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# SR1000 documentation build configuration file, created by
-# sphinx-quickstart on Wed Jun 01 10:43:29 2016.
+# PySR1000 documentation build configuration file, created by
+# sphinx-quickstart on Wed Jun 01 13:22:34 2016.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -18,7 +18,7 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('../src'))
 
 # -- General configuration ------------------------------------------------
 
@@ -29,7 +29,11 @@ sys.path.insert(0, os.path.abspath('.'))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc']
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.doctest',
+    'sphinx.ext.mathjax',
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -48,7 +52,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'SR1000'
+project = u'PySR1000'
 copyright = u'2016, Qu Dong'
 author = u'Qu Dong'
 
@@ -133,7 +137,7 @@ html_theme = 'alabaster'
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
 #
-# html_title = u'SR1000 v1.0.0'
+# html_title = u'PySR1000 v1.0.0'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #
@@ -233,7 +237,7 @@ html_static_path = ['_static']
 # html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'pySR1000doc'
+htmlhelp_basename = 'PySR1000doc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -259,7 +263,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'SR1000.tex', u'SR1000 Documentation',
+    (master_doc, 'PySR1000.tex', u'PySR1000 Documentation',
      u'Qu Dong', 'manual'),
 ]
 
@@ -295,7 +299,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'pysr1000', u'SR1000 Documentation',
+    (master_doc, 'pysr1000', u'PySR1000 Documentation',
      [author], 1)
 ]
 
@@ -310,8 +314,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'SR1000', u'SR1000 Documentation',
-     author, 'SR1000', 'One line description of project.',
+    (master_doc, 'PySR1000', u'PySR1000 Documentation',
+     author, 'PySR1000', 'One line description of project.',
      'Miscellaneous'),
 ]
 
