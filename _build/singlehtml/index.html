@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SR1000 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="None" href="index.html#document-index" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-pysr1000-s-documentation">
+<h1>Welcome to pySR1000&#8217;s documentation!<a class="headerlink" href="#welcome-to-pysr1000-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-SR1000"></span><p>Created on 25/5/2016 4:14 PM</p>
+<p>Author: Qu Dong</p>
+<dl class="docutils">
+<dt>NOTE:</dt>
+<dd><ul class="first last simple">
+<li>It currently only supports Python2.7, as the package used (import clr) to interact with .NET 3.5 dll is compiled
+only for Python2.7. And there is no (Python3.5 + .NET 3.5) available currently. (I may find a way to recompile the source
+code under Python3.5 for .NET Framework 3.5).</li>
+<li>Make sure the .NET Framework 3.5 is installed on you OS. But for Window 7 or above, .NET Framework has already
+been inclued as a part of the OS, os you only need to enable them.</li>
+<li>Look like .NET cannot be used together with the with statement.</li>
+</ul>
+</dd>
+<dt>TODO:</dt>
+<dd><ol class="first last arabic simple">
+<li>docs</li>
+<li>timeout if barcode cannot be found</li>
+<li>python for net which supports .net3.5 and python3.x, or keyence lib on .net4.0</li>
+</ol>
+</dd>
+</dl>
+<div class="section" id="sr1000">
+<h2><strong>SR1000</strong><a class="headerlink" href="#sr1000" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="SR1000.SR1000">
+<em class="property">class </em><code class="descclassname">SR1000.</code><code class="descname">SR1000</code><span class="sig-paren">(</span><em>interface='USB'</em>, <em>ipaddr='192.168.100.100'</em>, <em>cmdport=9003</em>, <em>dataport=9004</em>, <em>saveimg=True</em>, <em>timeout=10</em><span class="sig-paren">)</span><a class="headerlink" href="#SR1000.SR1000" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for Keyence SR1000 bar code reader. The connection is not opened when the object creation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>interface</strong> &#8211; Type of interfacing method, currently only support USB (as we only use USB!)</li>
+<li><strong>ipaddr</strong> &#8211; Device IP address</li>
+<li><strong>cmdport</strong> &#8211; Command port number</li>
+<li><strong>dataport</strong> &#8211; Data port number</li>
+<li><strong>saveimg</strong> &#8211; Whether to save the captured image after LON bar code reading</li>
+<li><strong>timeout</strong> &#8211; Timeout during the LON bar code reading process</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="SR1000.SR1000.LOFF">
+<code class="descname">LOFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SR1000.SR1000.LOFF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send the LOFF command.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SR1000.SR1000.LON">
+<code class="descname">LON</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SR1000.SR1000.LON" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send LON command, start to capture the 2D barcode</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SR1000.SR1000.connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SR1000.SR1000.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to the Reader</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SR1000.SR1000.disconnect">
+<code class="descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SR1000.SR1000.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnect from the Reader</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SR1000.SR1000.get_barcode">
+<code class="descname">get_barcode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SR1000.SR1000.get_barcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the 2D Barcode</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">2D DataMatrix string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SR1000.SR1000.startlivview">
+<code class="descname">startlivview</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SR1000.SR1000.startlivview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start processing of LiveView</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html#document-index">Table Of Contents</a></h3>
+  <ul class="simple">
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html#document-index">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Qu Dong.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -5,12 +5,13 @@ Created on 25/5/2016 4:14 PM
 
 Author: Qu Dong
 
-1. It currently only supports Python2.7, as the package used (import clr) to interact with .NET 3.5 dll is compiled only for
-Python2.7. And there is no (Python3.5 + .NET 3.5) available currently. (I may find a way to recompile the source
-code under Python3.5 for .NET Framework 3.5).
-2. Make sure the .NET Framework 3.5 is installed on you OS. But for Window 7 or above, .NET Framework has already
-been inclued as a part of the OS, os you only need to enable them.
-3. Look like .NET cannot be used together with the with statement
+NOTE:
+    - It currently only supports Python2.7, as the package used (import clr) to interact with .NET 3.5 dll is compiled
+      only for Python2.7. And there is no (Python3.5 + .NET 3.5) available currently. (I may find a way to recompile the source
+      code under Python3.5 for .NET Framework 3.5).
+    - Make sure the .NET Framework 3.5 is installed on you OS. But for Window 7 or above, .NET Framework has already
+      been inclued as a part of the OS, os you only need to enable them.
+    - Look like .NET cannot be used together with the with statement.
 
 TODO:
     1. docs
@@ -39,7 +40,18 @@ class BarcodeReaderError(BaseException):
     pass
 
 class SR1000():
+    """
+    Class for Keyence SR1000 bar code reader. The connection is not opened when the object creation.
+
+    :param interface: Type of interfacing method, currently only support USB (as we only use USB!)
+    :param ipaddr: Device IP address
+    :param cmdport: Command port number
+    :param dataport: Data port number
+    :param saveimg: Whether to save the captured image after LON bar code reading
+    :param timeout: Timeout during the LON bar code reading process
+    """
     def __init__(self, interface='USB', ipaddr='192.168.100.100', cmdport=9003, dataport=9004, saveimg=True, timeout=10):
+
         self.debug = False
         self.barcodeReaderControl1 = Keyence.AutoID.BarcodeReaderControl()
         self.barcodeReaderControl1.LiveView.ImageType = Keyence.AutoID.ImageType.JEPG_IMAGE
@@ -54,7 +66,7 @@ class SR1000():
         self.barcodeReaderControl1.Ether.DataPort = dataport
         
         # Register the event handler
-        self.barcodeReaderControl1.OnDataReceived += self._ondatareceived
+        self.barcodeReaderControl1.OnDataReceived += self.__ondatareceived
         
         self._barcode = None
         self.saveimg = saveimg
@@ -69,7 +81,8 @@ class SR1000():
 #        self.disconnect()
          
     def connect(self):
-        """ Connect to the Reader
+        """
+        Connect to the Reader
         """
         try:
             self.barcodeReaderControl1.Connect() #Connect to the Reader
@@ -81,7 +94,8 @@ class SR1000():
             raise BarcodeReaderError('[SKCLOSE ERROR]: ' +  ex.Message)
             
     def disconnect(self):
-        """ Disconnect from the Reader
+        """
+        Disconnect from the Reader
         """
         try:
             self.barcodeReaderControl1.Disconnect()
@@ -89,12 +103,14 @@ class SR1000():
             raise BarcodeReaderError('[DISCONNECTION ERROR]: '+ ex.Message)
         
     def startlivview(self):
-        """ Start processing of LiveView
+        """
+        Start processing of LiveView
         """
         self.barcodeReaderControl1.StartLiveView() #Start processing of LiveView
         
     def LON(self):
-        """ Send LON command, start to capture the 2D barcode
+        """
+        Send LON command, start to capture the 2D barcode
         """            
         try:
             self.barcodeReaderControl1.LON() # Timing ON 
@@ -109,7 +125,8 @@ class SR1000():
             raise BarcodeReaderError("[LON UNKOWN ERROR]: " + ex.Message)
             
     def LOFF(self):
-        """ Send LOFF command
+        """
+        Send the LOFF command.
         """
         try:
             self.barcodeReaderControl1.LOFF()
@@ -120,10 +137,14 @@ class SR1000():
         except SysException as ex:
             raise BarcodeReaderError('[LOFF UNKOWN ERROR]: ' + ex.Message)
             
-    def _ondatareceived(self, sender, args):
-        """ Internal Event handler method, not supposed to be called..
-            if saveimg is True during the instantiation, a new folder 'BARCODE_IMG` 
-            will be created and the img will be saved inside.
+    def __ondatareceived(self, sender, args):
+        """
+        Private Event handler method, **NOT** supposed to be Called. May causing kernel die
+        if saveimg is True during the instantiation, a new folder 'BARCODE_IMG`
+        will be created and the img will be saved inside.
+
+        :param sender: the sender object, in this case it is OnDataReceived
+        :param args:  a instance of the OnDataReceivedEventArgs class
         """
         if self.debug:
             WinForms.MessageBox.Show('Barcode Found! [Event OnDataReceived Triggered]')
@@ -141,7 +162,10 @@ class SR1000():
         self._rsltready = True
             
     def get_barcode(self):
-        """ Get the 2D DataMatrix
+        """
+        Get the 2D Barcode
+
+        :return: 2D DataMatrix string
         """
         while not self._rsltready:
             pass

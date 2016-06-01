@@ -1,3 +1,4 @@
 /.idea
 /BARCODE_IMG
 /*.log
+/*.pyc
