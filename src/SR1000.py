@@ -23,6 +23,8 @@ __version__ = "1.0.0"
 import sys
 import os
 
+sys.path.insert(0, os.path.abspath('./')) # add the current file location to sys path so that the clr module is searchable
+
 if sys.version_info.major != 2 or sys.version_info.minor != 7:
     raise Exception("must use Python 2.7")
 
